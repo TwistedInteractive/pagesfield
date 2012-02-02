@@ -388,7 +388,8 @@
 			$sort_field = (!$useIDFieldForSorting ? 'ed' : 't' . $this->get('id'));
 
 			$joins .= "INNER JOIN `tbl_entries_data_".$this->get('id')."` AS `$sort_field` ON (`e`.`id` = `$sort_field`.`entry_id`) ";
-			$sort .= 'ORDER BY ' . (strtolower($order) == 'random' ? 'RAND()' : "`$sort_field`.`handle` $order");
+            $joins .= "INNER JOIN `tbl_pages` ON (`tbl_pages`.`id` = `$sort_field`.`page_id`) ";
+            $sort .= 'ORDER BY ' . (strtolower($order) == 'random' ? 'RAND()' : "`tbl_pages`.`sortorder` $order");
 		}
 
 	}
